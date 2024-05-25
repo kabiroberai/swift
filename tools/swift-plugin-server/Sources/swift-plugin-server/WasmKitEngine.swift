@@ -10,6 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#if !SWIFT_WASM_USE_JSC
+
 import WASI
 import WasmKit
 import WasmKitWASI
@@ -37,3 +39,5 @@ struct WasmKitEngine: WasmEngine {
     return { args in try function.invoke(args.map(Value.i32), runtime: runtime).map(\.i32) }
   }
 }
+
+#endif

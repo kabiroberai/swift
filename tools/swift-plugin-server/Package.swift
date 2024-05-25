@@ -2,6 +2,8 @@
 
 import PackageDescription
 
+let allowJSC = true
+
 let package = Package(
   name: "swift-plugin-server",
   platforms: [
@@ -18,8 +20,11 @@ let package = Package(
         .product(name: "SwiftCompilerPluginMessageHandling", package: "swift-syntax"),
         .product(name: "SwiftLibraryPluginProvider", package: "swift-syntax"),
         .product(name: "WASI", package: "WasmKit"),
-        .product(name: "WasmKitWASI", package: "WasmKit"),
-      ]
+        .product(name: "WasmKitWASI", package: "WasmKit", condition: .when(
+            platforms: [.linux, .windows] + (allowJSC ? [] : [.macOS])
+        )),
+      ],
+      swiftSettings: allowJSC ? [.define("SWIFT_WASM_USE_JSC", .when(platforms: [.macOS]))] : []
     ),
   ],
   cxxLanguageStandard: .cxx17
