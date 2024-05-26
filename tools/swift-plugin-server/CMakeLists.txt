@@ -33,8 +33,7 @@ if (SWIFT_BUILD_SWIFT_SYNTAX)
     SWIFT_DEPENDENCIES
       SwiftCompilerPluginMessageHandling
       SwiftLibraryPluginProvider
-      SystemPackage
-      ${wasi_dep}
+      WasmKitWASI
   )
 
   target_compile_definitions(swift-plugin-server PRIVATE ${jsc_defines})
