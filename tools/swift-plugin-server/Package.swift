@@ -11,6 +11,7 @@ let package = Package(
   ],
   dependencies: [
     .package(path: "../../../swift-syntax"),
+    .package(path: "../../../swift-system"),
     .package(path: "../../../wasmkit"),
   ],
   targets: [
@@ -19,6 +20,7 @@ let package = Package(
       dependencies: [
         .product(name: "SwiftCompilerPluginMessageHandling", package: "swift-syntax"),
         .product(name: "SwiftLibraryPluginProvider", package: "swift-syntax"),
+        .product(name: "SystemPackage", package: "swift-system"),
         .product(name: "WASI", package: "WasmKit"),
         .product(name: "WasmKitWASI", package: "WasmKit", condition: .when(
             platforms: [.linux, .windows] + (allowJSC ? [] : [.macOS])
