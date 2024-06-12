@@ -80,13 +80,11 @@ final class JSCWasmEngine: WasmEngine {
     guard let export = api.objectForKeyedSubscript(name), export.isObject else {
       return nil
     }
-    return { [api] args in
-      let result = export.call(withArguments: args)
+    return { [api] in
+      export.call(withArguments: [])
       if let exception = api.context.exception {
         throw JSCWasmError(message: "Call to '\(name)' failed", value: exception)
       }
-      guard let result else { return [] }
-      return result.isUndefined ? [] : [result.toUInt32()]
     }
   }
 }
